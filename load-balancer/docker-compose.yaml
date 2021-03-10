@@ -1,20 +1,38 @@
-version: "3.9"
-
+version: "2.4"
 services:
+  #se crea un servicio con un contenedor el cual utiliza la imagen api-servidor1
+  #esta api despliega un mensaje simple, al visitar el endpoint
+  # http://localhost:5000/mensaje
   server1:
-    image: wygd/api-servidor1:latest
-    hostname: servidor1
-    expose:
-      - "5000:5000"
+    image: wygd/api-servidor:latest
+    ports:
+     - "5000"
+    #se conecta el contenedor a la red "red-servidores"
     networks:
       - red-servidores
+  #se crea un segundo servicio con un contenedor el cual utiliza la imagen api-servidor2
+  #esta api despliega un mensaje simple, al visitar el endpoint
+  # http://localhost:5001/mensaje
   server2:
-    image: wygd/api-servidor2:latest
-    hostname: servidor2
-    expose:
-      - "5001:6000"
+    image: wygd/api-servidor:latest
+    ports:
+     - "5000"
+    #se conecta el contenedor a la red "red-servidores"
     networks:
       - red-servidores
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - server1
+      - server2
+    ports:
+      - "4000:4000"
+    networks:
+      - red-servidores
+#aqui se crean las networks
 networks:
+  #se crea la red "red-servidores" usando el driver de tipo "bridge"
   red-servidores:
     driver: bridge
