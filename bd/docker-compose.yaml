@@ -1,33 +1,44 @@
 version: "2.4"
 services:
-  
+  db:
+    build: ./mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306"
+    networks:
+      - red-db
   #se crea un servicio con un contenedor el cual utiliza la imagen api-servidor1
   #esta api despliega un mensaje simple, al visitar el endpoint
   # http://localhost:5000/mensaje
   server1:
-    image: wygd/api-servidor:latest
+    image: wygd/api-servidordb:latest
     ports:
      - "5000"
-    #se conecta el contenedor a la red "red-servidores"
+    depends_on:
+     - db
+    environment:
+    - USER_NAME=users_service
+    - PORT=3306
+    - HOST=db
+    - DB_NAME=test
+    - PASS=123
     networks:
+      #se conecta el contenedor a la red "red-servidores"
       - red-servidores
+      #para que el servidor pueda comunicarse con la base de datos que esta en otra network
+      #se debe conectar el contendor del servidor a la network de la base de datos.
+      - red-db
   #se crea un segundo servicio con un contenedor el cual utiliza la imagen api-servidor2
   #esta api despliega un mensaje simple, al visitar el endpoint
   # http://localhost:5001/mensaje
-  server2:
-    image: wygd/api-servidor:latest
-    ports:
-     - "5000"
-    #se conecta el contenedor a la red "red-servidores"
-    networks:
-      - red-servidores
   nginx:
     image: nginx:latest
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - server1
-      - server2
+      #- server2
     ports:
       - "4000:4000"
     networks:
@@ -36,4 +47,7 @@ services:
 networks:
   #se crea la red "red-servidores" usando el driver de tipo "bridge"
   red-servidores:
+    driver: bridge
+  #se crea la red "red-db" usando el driver de tipo "bridge"
+  red-db:
     driver: bridge
