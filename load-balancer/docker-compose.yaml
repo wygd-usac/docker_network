@@ -37,3 +37,5 @@ networks:
   #se crea la red "red-servidores" usando el driver de tipo "bridge"
   red-servidores:
     driver: bridge
+  red-servidores2:
+    driver: bridge

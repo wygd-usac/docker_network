@@ -20,15 +20,15 @@ VALUES ('Marta', 'Wayne', 945214775, 'Av. Alfonso Ugarte', 'Lima', 'Marta Wayne'
         1, '2011-12-18 13:17:17', 'SYSADMIN');
 INSERT INTO EMPLOYEE (FirstName, LastName, Phone, Address, City, FullName, Email, Pin, CreationDate, EmployeeCode)
 VALUES ('Luis', 'Hernandez', 945214775, 'Av. Alfonso Ugarte', 'Lima', 'Luis Hernandez', 'sysadmin@gmail.com',
-        1, '2011-12-18 13:17:17', 'SYSADMIN');
+        1, '2011-12-18 13:17:17', 'SYSADMIN2');
 VALUES ('Marta', 'Kent', 945214775, 'Av. Alfonso Ugarte', 'Lima', 'SYSADMIN SYSADMIN', 'sysadmin@gmail.com',
-        1, '2011-12-18 13:17:17', 'SYSADMIN');
+        1, '2011-12-18 13:17:17', 'SYSADMIN3');
 INSERT INTO EMPLOYEE (FirstName, LastName, Phone, Address, City, FullName, Email, Pin, CreationDate, EmployeeCode)
 VALUES ('Marcos', 'Guzman', 945214775, 'Av. Alfonso Ugarte', 'Lima', 'SYSADMIN SYSADMIN', 'sysadmin@gmail.com',
-        1, '2011-12-18 13:17:17', 'SYSADMIN');
+        1, '2011-12-18 13:17:17', 'SYSADMIN4');
 INSERT INTO EMPLOYEE (FirstName, LastName, Phone, Address, City, FullName, Email, Pin, CreationDate, EmployeeCode)
 VALUES ('Lorena', 'Lopez', 945214775, 'Av. Alfonso Ugarte', 'Lima', 'SYSADMIN SYSADMIN', 'sysadmin@gmail.com',
-        1, '2011-12-18 13:17:17', 'SYSADMIN');
+        1, '2011-12-18 13:17:17', 'SYSADMIN5');
 INSERT INTO EMPLOYEE (FirstName, LastName, Phone, Address, City, FullName, Email, Pin, CreationDate, EmployeeCode)
 
 DROP PROCEDURE IF EXISTS sp_GetEmployee;
