@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/Pallinder/go-randomdata"
 	"database/sql"
-    _ "github.com/go-sql-driver/mysql"
+    //"github.com/go-sql-driver/mysql"
 )
 
 type Employee struct {
@@ -20,6 +20,8 @@ var nombre_servidor = "default"
 var mensaje = "Mensaje default"
 
 var db_handler *sql.DB;
+var carnet = "202100000"
+
 //PruebaHandler funcion
 func PruebaHandler (w http.ResponseWriter, request *http.Request) {
 	enableCors(&w)
@@ -30,7 +32,7 @@ func PruebaHandler (w http.ResponseWriter, request *http.Request) {
 //MensajeHandler funcion
 func MensajeHandler (w http.ResponseWriter, request *http.Request) {
 	enableCors(&w)
-
+	//results, err := db_handler.Query("Insert into  Reportes(carnet,nombre,cuerpo_reporte,carnet), FirstName FROM EMPLOYEE")
 	w.Write([]byte(mensaje))
 }
 
@@ -73,6 +75,7 @@ func main(){
 	host:= os.Getenv("HOST")
 	port:= os.Getenv("PORT")
 	db_name:= os.Getenv("DB_NAME")
+	carnet= os.Getenv("CARNET")
 	conn_string := usuario+":"+pass+"@tcp("+host+":"+port+")/"+db_name
 	db, err := sql.Open("mysql", conn_string)
 

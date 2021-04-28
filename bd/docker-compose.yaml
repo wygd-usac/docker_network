@@ -23,6 +23,45 @@ services:
     - HOST=db
     - DB_NAME=test
     - PASS=123
+    - CARNET=201314571
+    networks:
+      #se conecta el contenedor a la red "red-servidores"
+      - red-servidores
+      #para que el servidor pueda comunicarse con la base de datos que esta en otra network
+      #se debe conectar el contendor del servidor a la network de la base de datos.
+      - red-db
+    server2:
+    image: wygd/api-servidordb:latest
+    ports:
+     - "5000"
+    depends_on:
+     - db
+    environment:
+    - USER_NAME=users_service
+    - PORT=3306
+    - HOST=db
+    - DB_NAME=test
+    - PASS=123
+    - CARNET=201414571
+    networks:
+      #se conecta el contenedor a la red "red-servidores"
+      - red-servidores
+      #para que el servidor pueda comunicarse con la base de datos que esta en otra network
+      #se debe conectar el contendor del servidor a la network de la base de datos.
+      - red-db
+    server3:
+    image: wygd/api-servidordb:latest
+    ports:
+     - "5000"
+    depends_on:
+     - db
+    environment:
+    - USER_NAME=users_service
+    - PORT=3306
+    - HOST=db
+    - DB_NAME=test
+    - PASS=123
+    - CARNET=201514571
     networks:
       #se conecta el contenedor a la red "red-servidores"
       - red-servidores
@@ -43,6 +82,12 @@ services:
       - "4000:4000"
     networks:
       - red-servidores
+
+  frontend:
+    #...
+    networks:
+      -red-servidores
+      -red-frontend
 #aqui se crean las networks
 networks:
   #se crea la red "red-servidores" usando el driver de tipo "bridge"
